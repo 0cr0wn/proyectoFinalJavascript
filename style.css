@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.dropdown-menu {
+  background-color: #ecec28;
+}
+
+body {
+  background-color: #ecec28;
+  height: 100vh;
+}
+.btn:hover {
+  background-color: #ecec28;
+}
+div {
+  margin: 10px;
+  float: left;
+  text-align: center;
+  color: #0a0a09;
+}
+.d-block {
+  height: 100%;
+}
+.introduccion {
+  text-align: center;
+  padding: 150px;
+  height: 500px;
+}
+.introduccion h1 {
+  font-size: 72px;
+}
+.carousel-caption {
+  background-color: #0000003d;
+}
+.carousel {
+  min-width: 600px;
+  max-width: 600px;
+}
+
+.pedidos {
+  width: 80px;
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+  transition: all 3s ease;
+}
+.ubicacion h3 {
+  text-align: left;
+}
+.cajon {
+  background-color: #00000021;
+}
+.card {
+  justify-content: center;
+  margin: 10px;
+  position: relative;
+}
+.rrss {
+  background-color: #0a0a09;
+  color: aliceblue;
+  padding: 5px;
+  margin: 0 auto;
+}
+.azul {
+  width: 25%;
+  height: 50vh;
+  background-color: blue;
+}
+.azulc {
+  width: 25%;
+  height: 50vh;
+  background-color: rgb(47, 47, 236);
+}
+.azulmc {
+  width: 25%;
+  height: 50vh;
+  background-color: rgb(79, 79, 236);
+}
+.azulmmc {
+  width: 25%;
+  height: 50vh;
+  background-color: rgb(133, 133, 209);
+}
