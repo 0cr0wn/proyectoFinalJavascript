@@ -11,7 +11,7 @@ class Hamburguesa {
 const hamburguesa1 = new Hamburguesa("hamburguesa de carne", "pan, carne, tomate, lechuga, salsas", 7990)
 const hamburguesa2 = new Hamburguesa("hamburguesa de pollo", "pan, pollo, tomate, lechuga, salsas", 6990)
 const hamburguesa3 = new Hamburguesa("hamburguesa de chuleta", "pan, chuleta, tomate, lechuga, salsas", 8990)
-const hamburguesa4 = new Hamburguesa("hamburguesa de mixta", "pan, carne, pollo y/o chuleta, tomate, lechuga, salsas", 10990)
+const hamburguesa4 = new Hamburguesa("hamburguesa mixta", "pan, carne, pollo y/o chuleta, tomate, lechuga, salsas", 10990)
 
 const carrito = []
 
@@ -21,8 +21,6 @@ const mostrarMensaje = (hamburguesa) => {
     alert(hamburguesa.nombre + " lleva " + hamburguesa.descripcion + " y tiene el valor de $" + hamburguesa.precio)
     const confirmacionUsuario2 = confirm("desea llevarla?")
     if (confirmacionUsuario2) {
-        carrito.push
-
     } else {
         agregarProducto()
     }
@@ -35,6 +33,23 @@ const totalCarrito = () => {
     })
     return sumaTotal
 }
+
+const cardContainer = document.querySelector("#cajonContenedor")
+
+productos.forEach((producto) => {
+    const cardP = document.createElement("div")
+    cardP.className = "card col-xs-12 col-lg-3 col-sm-3"
+    cardP.innerHTML = `  <p class="card-text">${producto.nombre}</p>
+     <img src="../media/burguer.jpg" class="p-2 card-img-top" alt="...">
+    <div class="card-body">
+      <p class="card-text">Ingredientes: ${producto.descripcion}</p>
+      <p class="card-text">$${producto.precio}</p>
+      <a href="#" class="btn btn-warning">Agregar</a>`
+
+    cardContainer.append(cardP)
+
+})
+
 
 
 console.log(productos);
@@ -75,4 +90,4 @@ const agregarProducto = () => {
 
 }
 
-agregarProducto()
+
