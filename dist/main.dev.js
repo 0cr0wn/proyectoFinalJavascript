@@ -22,8 +22,8 @@ var mostrarMensaje = function mostrarMensaje(hamburguesa) {
   alert(hamburguesa.nombre + " lleva " + hamburguesa.descripcion + " y tiene el valor de $" + hamburguesa.precio);
   var confirmacionUsuario2 = confirm("desea llevarla?");
 
-  if (confirmacionUsuario2) {} else {
-    agregarProducto();
+  if (confirmacionUsuario2) {
+    agregarProducto(e);
   }
 };
 
@@ -46,9 +46,11 @@ productos.forEach(function (producto) {
 var agregarProducto = function agregarProducto(e) {
   var productoElegido = e.target.getAttribute("data-id");
   var producto = productos.find(function (producto) {
-    return producto.nombre == productoElegido;
+    return producto.id == productoElegido;
   });
-  console.log(e.target);
+  carrito.push(producto);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  alert("el total de su compra es $" + totalCarrito());
 };
 
 var botonesDeAgregar = document.querySelectorAll(".btn");

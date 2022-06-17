@@ -22,9 +22,8 @@ const mostrarMensaje = (hamburguesa) => {
     alert(hamburguesa.nombre + " lleva " + hamburguesa.descripcion + " y tiene el valor de $" + hamburguesa.precio)
     const confirmacionUsuario2 = confirm("desea llevarla?")
     if (confirmacionUsuario2) {
+        agregarProducto(e)
 
-    } else {
-        agregarProducto()
     }
 }
 
@@ -56,13 +55,18 @@ productos.forEach((producto) => {
 
 const agregarProducto = (e) => {
     const productoElegido = e.target.getAttribute("data-id")
-    const producto = productos.find((producto) => producto.nombre == productoElegido)
-    console.log(e.target);
+    const producto = productos.find((producto) => producto.id == productoElegido)
+    carrito.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(carrito))
+    alert("el total de su compra es $" + totalCarrito())
 }
+
 
 const botonesDeAgregar = document.querySelectorAll(".btn")
 botonesDeAgregar.forEach((botonCompra) => {
     botonCompra.addEventListener("click", agregarProducto)
 })
+
+
 
 
