@@ -19,12 +19,21 @@ var carrito = [];
 var productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4];
 
 var mostrarMensaje = function mostrarMensaje(hamburguesa) {
-  alert(hamburguesa.nombre + " lleva " + hamburguesa.descripcion + " y tiene el valor de $" + hamburguesa.precio);
-  var confirmacionUsuario2 = confirm("desea llevarla?");
-
-  if (confirmacionUsuario2) {
-    agregarProducto(e);
-  }
+  var confirmacionUsuario2 = Swal.fire({
+    title: 'Desea Llevarla?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Quiero llevarla',
+    denyButtonText: "Mejor no"
+  }).then(function (result) {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire('¡Se ha agregado a tu carrito!', '', 'success');
+      agregarProducto(e);
+    } else if (result.isDenied) {
+      Swal.fire('Se ha descartado el producto', '', 'info');
+    }
+  });
 };
 
 var totalCarrito = function totalCarrito() {
@@ -50,10 +59,16 @@ var agregarProducto = function agregarProducto(e) {
   });
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
-  alert("el total de su compra es $" + totalCarrito());
+  Toastify({
+    text: "Producto Agregado",
+    className: "info",
+    style: {
+      background: "linear-gradient(to right, #22D619, #52D84B)"
+    }
+  }).showToast();
 };
 
 var botonesDeAgregar = document.querySelectorAll(".btn");
 botonesDeAgregar.forEach(function (botonCompra) {
-  botonCompra.addEventListener("click", agregarProducto);
+  botonCompra.addEventListener("click", mostrarMensaje);
 });

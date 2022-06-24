@@ -19,12 +19,24 @@ const carrito = []
 const productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4]
 
 const mostrarMensaje = (hamburguesa) => {
-    alert(hamburguesa.nombre + " lleva " + hamburguesa.descripcion + " y tiene el valor de $" + hamburguesa.precio)
-    const confirmacionUsuario2 = confirm("desea llevarla?")
-    if (confirmacionUsuario2) {
-        agregarProducto(e)
+    const confirmacionUsuario2 = Swal.fire({
+        title: 'Desea Llevarla?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Quiero llevarla',
+        denyButtonText: `Mejor no`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
 
-    }
+            Swal.fire('¡Se ha agregado a tu carrito!', '', 'success')
+            agregarProducto(e)
+
+        } else if (result.isDenied) {
+            Swal.fire('Se ha descartado el producto', '', 'info')
+        }
+    })
+
 }
 
 const totalCarrito = () => {
@@ -58,13 +70,19 @@ const agregarProducto = (e) => {
     const producto = productos.find((producto) => producto.id == productoElegido)
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito))
-    alert("el total de su compra es $" + totalCarrito())
+    Toastify({
+        text: "Producto Agregado",
+        className: "info",
+        style: {
+            background: "linear-gradient(to right, #22D619, #52D84B)",
+        }
+    }).showToast();
 }
 
 
 const botonesDeAgregar = document.querySelectorAll(".btn")
 botonesDeAgregar.forEach((botonCompra) => {
-    botonCompra.addEventListener("click", agregarProducto)
+    botonCompra.addEventListener("click", mostrarMensaje)
 })
 
 
