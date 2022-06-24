@@ -19,21 +19,34 @@ const carrito = []
 const productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4]
 
 const mostrarMensaje = (hamburguesa) => {
-    const confirmacionUsuario2 = Swal.fire({
+    Swal.fire({
         title: 'Desea Llevarla?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Quiero llevarla',
+        confirmButtonColor: "#22D619",
         denyButtonText: `Mejor no`,
+        denyButtonColor: "#EA1818"
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-
-            Swal.fire('¡Se ha agregado a tu carrito!', '', 'success')
+            Toastify({
+                text: "Producto Agregado",
+                className: "info",
+                style: {
+                    background: "linear-gradient(to right, #22D619, #52D84B)",
+                }
+            }).showToast();
             agregarProducto(e)
 
         } else if (result.isDenied) {
-            Swal.fire('Se ha descartado el producto', '', 'info')
+            Toastify({
+                text: "no se ha agregado el producto",
+                className: "info",
+                style: {
+                    background: "linear-gradient(to right, #EA1818, #C83939)",
+                }
+            }).showToast();
         }
     })
 
@@ -66,17 +79,12 @@ productos.forEach((producto) => {
 //
 
 const agregarProducto = (e) => {
+
     const productoElegido = e.target.getAttribute("data-id")
     const producto = productos.find((producto) => producto.id == productoElegido)
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito))
-    Toastify({
-        text: "Producto Agregado",
-        className: "info",
-        style: {
-            background: "linear-gradient(to right, #22D619, #52D84B)",
-        }
-    }).showToast();
+
 }
 
 

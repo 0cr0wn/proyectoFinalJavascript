@@ -19,19 +19,33 @@ var carrito = [];
 var productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4];
 
 var mostrarMensaje = function mostrarMensaje(hamburguesa) {
-  var confirmacionUsuario2 = Swal.fire({
+  Swal.fire({
     title: 'Desea Llevarla?',
     showDenyButton: true,
     showCancelButton: true,
     confirmButtonText: 'Quiero llevarla',
-    denyButtonText: "Mejor no"
+    confirmButtonColor: "#22D619",
+    denyButtonText: "Mejor no",
+    denyButtonColor: "#EA1818"
   }).then(function (result) {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
-      Swal.fire('¡Se ha agregado a tu carrito!', '', 'success');
+      Toastify({
+        text: "Producto Agregado",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #22D619, #52D84B)"
+        }
+      }).showToast();
       agregarProducto(e);
     } else if (result.isDenied) {
-      Swal.fire('Se ha descartado el producto', '', 'info');
+      Toastify({
+        text: "no se ha agregado el producto",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #EA1818, #C83939)"
+        }
+      }).showToast();
     }
   });
 };
@@ -59,13 +73,6 @@ var agregarProducto = function agregarProducto(e) {
   });
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
-  Toastify({
-    text: "Producto Agregado",
-    className: "info",
-    style: {
-      background: "linear-gradient(to right, #22D619, #52D84B)"
-    }
-  }).showToast();
 };
 
 var botonesDeAgregar = document.querySelectorAll(".btn");
