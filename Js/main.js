@@ -1,3 +1,12 @@
+const renderizadoDeProductos = (data) => {
+    console.log(data);
+}
+
+fetch('../productos.json')
+    .then((res) => res.json())
+    .then((data) => {
+        renderizadoDeProductos(data)
+    })
 
 
 class Hamburguesa {
@@ -18,7 +27,7 @@ const carrito = []
 
 const productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4]
 
-const mostrarMensaje = (hamburguesa) => {
+const mostrarMensaje = () => {
     Swal.fire({
         title: 'Desea Llevarla?',
         showDenyButton: true,
@@ -37,7 +46,7 @@ const mostrarMensaje = (hamburguesa) => {
                     background: "linear-gradient(to right, #22D619, #52D84B)",
                 }
             }).showToast();
-            agregarProducto(e)
+
 
         } else if (result.isDenied) {
             Toastify({

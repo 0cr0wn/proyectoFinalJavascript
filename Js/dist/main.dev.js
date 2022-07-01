@@ -2,6 +2,16 @@
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var renderizadoDeProductos = function renderizadoDeProductos(data) {
+  console.log(data);
+};
+
+fetch('../productos.json').then(function (res) {
+  return res.json();
+}).then(function (data) {
+  renderizadoDeProductos(data);
+});
+
 var Hamburguesa = function Hamburguesa(id, nombre, descripcion, precio) {
   _classCallCheck(this, Hamburguesa);
 
@@ -18,7 +28,7 @@ var hamburguesa4 = new Hamburguesa(104, "hamburguesa mixta", "pan, carne, pollo 
 var carrito = [];
 var productos = [hamburguesa1, hamburguesa2, hamburguesa3, hamburguesa4];
 
-var mostrarMensaje = function mostrarMensaje(hamburguesa) {
+var mostrarMensaje = function mostrarMensaje() {
   Swal.fire({
     title: 'Desea Llevarla?',
     showDenyButton: true,
@@ -37,7 +47,6 @@ var mostrarMensaje = function mostrarMensaje(hamburguesa) {
           background: "linear-gradient(to right, #22D619, #52D84B)"
         }
       }).showToast();
-      agregarProducto(e);
     } else if (result.isDenied) {
       Toastify({
         text: "no se ha agregado el producto",
@@ -78,9 +87,4 @@ var agregarProducto = function agregarProducto(e) {
 var botonesDeAgregar = document.querySelectorAll(".btn");
 botonesDeAgregar.forEach(function (botonCompra) {
   botonCompra.addEventListener("click", mostrarMensaje);
-});
-fetch('/productos.json').then(function (res) {
-  return res.json;
-}).then(function (data) {
-  return console.log(data);
 });
