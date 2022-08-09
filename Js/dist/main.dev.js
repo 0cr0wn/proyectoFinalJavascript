@@ -20,23 +20,12 @@ var renderizadoDeProductos = function renderizadoDeProductos() {
     cardP.innerHTML = "  <p class=\"card-text\">".concat(producto.nombre, "</p>\n     <img src=").concat(producto.img, "  class=\"p-2 card-img-top\" alt=\"...\">\n    <div class=\"card-body\">\n      <p class=\"card-text\">Ingredientes: ").concat(producto.descripcion, "</p>\n      <p class=\"card-text\">$").concat(producto.precio, "</p>");
     var botonP = document.createElement("button");
     botonP.setAttribute("data-id", producto.id);
-    botonP.className = "btn btn-warning";
+    botonP.className = "btn btnn btn-warning";
     botonP.innerText = "Agregar";
     cardContainer.append(cardP);
     cardP.append(botonP);
   });
   listenerbotones();
-};
-
-var carritoContainer = document.querySelector("#carrito");
-
-var renderizadoCarrito = function renderizadoCarrito() {
-  carrito.forEach(function (producto) {
-    var cardP = document.createElement("div");
-    cardP.className = "card col-xs-12 col-lg-3 col-sm-3";
-    cardP.innerHTML = "  <p class=\"card-text\">".concat(producto.nombre, "</p>\n     <img src=").concat(producto.img, "  class=\"p-2 card-img-top\" alt=\"...\">\n    <div class=\"card-body\">\n      <p class=\"card-text\">Ingredientes: ").concat(producto.descripcion, "</p>\n      <p class=\"card-text\">$").concat(producto.precio, "</p>");
-    carritoContainer.append(cardP);
-  });
 };
 
 var botonAgregar = function botonAgregar(e) {
@@ -65,7 +54,8 @@ var botonAgregar = function botonAgregar(e) {
         }).showToast();
         carrito.push(productoElegido);
         localStorage.setItem('carrito', JSON.stringify(carrito));
-        console.log(carrito);
+        renderizadoCarrito();
+        totalCarrito();
       } else if (result.isDenied) {
         Toastify({
           text: "no se ha agregado el producto",
@@ -81,8 +71,43 @@ var botonAgregar = function botonAgregar(e) {
   mostrarMensaje();
 };
 
+var carritoContainer = document.querySelector("#carrito");
+
+var renderizadoCarrito = function renderizadoCarrito() {
+  carritoContainer.innerHTML = "<h4 class= \"m-0-auto\">Total: $".concat(totalCarrito(), "</h4>\n    <button class=\" btnn btn-success\">finalizar compra</button>");
+  carrito.forEach(function (producto) {
+    var cardC = document.createElement("div");
+    cardC.className = "card col-xs-12 col-lg-3 col-sm-3 justify-content-center renderCarrito";
+    cardC.innerHTML = "<p class=\"card-text\"> ".concat(producto.nombre, "</p>\n        <img src=").concat(producto.img, " class=\"p-2 card-img-top\" alt=\"...\">\n            <div class=\"card-body\">\n                <p class=\"card-text\">Ingredientes: ").concat(producto.descripcion, "</p>\n                <p class=\"card-text\">$").concat(producto.precio, "</p>");
+    var botonE = document.createElement("button");
+    botonE.setAttribute("data-id", producto.id);
+    botonE.className = "btn btnn btn-danger p-15 delete";
+    botonE.innerText = "eliminar";
+    carritoContainer.append(cardC);
+    cardC.append(botonE);
+  });
+  document.querySelectorAll(".delete").forEach(function (producto) {
+    producto.addEventListener("click", delProducto);
+  });
+};
+
+renderizadoCarrito();
+
+var delProducto = function delProducto(e) {
+  var deleteProducto = e.target.getAttribute('data-id');
+  carrito = carrito.filter(function (producto) {
+    return producto.id != deleteProducto;
+  });
+  renderizadoCarrito();
+};
+
+var finalizarCompra = function finalizarCompra(e) {
+  Swal.fire('Tu compra ha finalizado!', 'gracias por preferirnos', 'success');
+  carrito.pop();
+};
+
 var listenerbotones = function listenerbotones() {
-  var botonesDeAgregar = document.querySelectorAll(".btn");
+  var botonesDeAgregar = document.querySelectorAll(".btnn");
   botonesDeAgregar.forEach(function (botonCompra) {
     botonCompra.addEventListener("click", botonAgregar);
   });

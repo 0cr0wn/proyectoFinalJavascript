@@ -6,12 +6,16 @@ let productos = []
 
 
 const totalCarrito = () => {
+
     let sumaTotal = 0
     carrito.forEach((producto) => {
         sumaTotal += producto.precio
     })
+
     return sumaTotal
+
 }
+
 
 const cardContainer = document.querySelector("#cajonContenedor")
 
@@ -28,7 +32,7 @@ const renderizadoDeProductos = () => {
       <p class="card-text">$${producto.precio}</p>`
         const botonP = document.createElement("button")
         botonP.setAttribute("data-id", producto.id)
-        botonP.className = "btn btn-warning"
+        botonP.className = "btn btnn btn-warning"
         botonP.innerText = "Agregar"
 
         cardContainer.append(cardP)
@@ -41,25 +45,7 @@ const renderizadoDeProductos = () => {
 
 
 }
-const carritoContainer = document.querySelector("#carrito")
 
-const renderizadoCarrito = () => {
-
-    carrito.forEach((producto) => {
-
-        const cardP = document.createElement("div")
-        cardP.className = "card col-xs-12 col-lg-3 col-sm-3"
-        cardP.innerHTML = `  <p class="card-text">${producto.nombre}</p>
-     <img src=${producto.img}  class="p-2 card-img-top" alt="...">
-    <div class="card-body">
-      <p class="card-text">Ingredientes: ${producto.descripcion}</p>
-      <p class="card-text">$${producto.precio}</p>`
-
-        carritoContainer.append(cardP)
-
-
-    })
-}
 
 
 const botonAgregar = (e) => {
@@ -85,8 +71,9 @@ const botonAgregar = (e) => {
                 }).showToast()
                 carrito.push(productoElegido)
                 localStorage.setItem('carrito', JSON.stringify(carrito))
+                renderizadoCarrito()
+                totalCarrito()
 
-                console.log(carrito);
             } else if (result.isDenied) {
                 Toastify({
                     text: "no se ha agregado el producto",
@@ -101,12 +88,61 @@ const botonAgregar = (e) => {
     }
     mostrarMensaje()
 
+
+}
+const carritoContainer = document.querySelector("#carrito")
+
+const renderizadoCarrito = () => {
+    carritoContainer.innerHTML = `<h4 class= "m-0-auto">Total: $${totalCarrito()}</h4>
+    <button class=" btnn btn-success">finalizar compra</button>`
+
+    carrito.forEach(producto => {
+        const cardC = document.createElement("div")
+        cardC.className = "card col-xs-12 col-lg-3 col-sm-3 justify-content-center renderCarrito"
+        cardC.innerHTML = `<p class="card-text"> ${producto.nombre}</p>
+        <img src=${producto.img} class="p-2 card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Ingredientes: ${producto.descripcion}</p>
+                <p class="card-text">$${producto.precio}</p>`
+        const botonE = document.createElement("button")
+        botonE.setAttribute("data-id", producto.id)
+        botonE.className = "btn btnn btn-danger p-15 delete"
+        botonE.innerText = "eliminar"
+        carritoContainer.append(cardC)
+        cardC.append(botonE)
+
+
+    })
+    document.querySelectorAll(".delete").forEach((producto) => {
+        producto.addEventListener("click", delProducto)
+
+    })
+}
+
+renderizadoCarrito()
+
+const delProducto = (e) => {
+    const deleteProducto = e.target.getAttribute('data-id')
+    carrito = carrito.filter((producto) => producto.id !=
+        deleteProducto)
+    renderizadoCarrito()
+}
+
+const finalizarCompra = (e) => {
+
+    Swal.fire(
+        'Tu compra ha finalizado!',
+        'gracias por preferirnos',
+        'success'
+
+    )
+    carrito.pop()
+
 }
 
 
-
 const listenerbotones = () => {
-    const botonesDeAgregar = document.querySelectorAll(".btn")
+    const botonesDeAgregar = document.querySelectorAll(".btnn")
     botonesDeAgregar.forEach((botonCompra) => {
 
         botonCompra.addEventListener("click", botonAgregar)
