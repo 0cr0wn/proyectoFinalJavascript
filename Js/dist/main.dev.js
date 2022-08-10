@@ -46,7 +46,7 @@ var botonAgregar = function botonAgregar(e) {
     }).then(function (result) {
       if (result.isConfirmed) {
         Toastify({
-          text: "Producto Agregado",
+          text: "Producto agregado",
           className: "info",
           style: {
             background: "linear-gradient(to right, #22D619, #52D84B)"
@@ -58,7 +58,7 @@ var botonAgregar = function botonAgregar(e) {
         totalCarrito();
       } else if (result.isDenied) {
         Toastify({
-          text: "no se ha agregado el producto",
+          text: "No se ha agregado el producto",
           className: "info",
           style: {
             background: "linear-gradient(to right, #EA1818, #C83939)"
@@ -74,7 +74,7 @@ var botonAgregar = function botonAgregar(e) {
 var carritoContainer = document.querySelector("#carrito");
 
 var renderizadoCarrito = function renderizadoCarrito() {
-  carritoContainer.innerHTML = "<h4 class= \"m-0-auto\">Total: $".concat(totalCarrito(), "</h4>\n    <button class=\" btnn btn-success\">finalizar compra</button>");
+  carritoContainer.innerHTML = "<h4 class= \"m-0-auto\">Total: $".concat(totalCarrito(), "</h4>\n    <button \n     class=\" btnFinish btn-success m-0-auto\" id='botonDeFinalizar'>finalizar compra</button>");
   carrito.forEach(function (producto) {
     var cardC = document.createElement("div");
     cardC.className = "card col-xs-12 col-lg-3 col-sm-3 justify-content-center renderCarrito";
@@ -89,6 +89,16 @@ var renderizadoCarrito = function renderizadoCarrito() {
   document.querySelectorAll(".delete").forEach(function (producto) {
     producto.addEventListener("click", delProducto);
   });
+  var fin = document.querySelector('#botonDeFinalizar');
+  fin.addEventListener("click", finalizarCompra);
+};
+
+var finalizarCompra = function finalizarCompra(e) {
+  var botonFinalizar = e.target;
+  Swal.fire("Tu compra ha finalizado! su total es: $".concat(totalCarrito()), 'gracias por preferirnos', 'success');
+  botonFinalizar;
+  carrito.pop();
+  renderizadoCarrito();
 };
 
 renderizadoCarrito();
@@ -101,22 +111,11 @@ var delProducto = function delProducto(e) {
   renderizadoCarrito();
 };
 
-var finalizarCompra = function finalizarCompra(e) {
-  Swal.fire('Tu compra ha finalizado!', 'gracias por preferirnos', 'success');
-  carrito.pop();
-};
-
 var listenerbotones = function listenerbotones() {
   var botonesDeAgregar = document.querySelectorAll(".btnn");
   botonesDeAgregar.forEach(function (botonCompra) {
     botonCompra.addEventListener("click", botonAgregar);
   });
-};
-
-var busqueda = document.querySelector("#inputSearch");
-
-var search = function search(productos) {
-  productos.find(productos ? console.log(productoElegido) : productos.nombre);
 };
 
 fetch('../productos.json').then(function (res) {

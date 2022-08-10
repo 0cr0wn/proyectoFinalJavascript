@@ -64,7 +64,7 @@ const botonAgregar = (e) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Toastify({
-                    text: "Producto Agregado", className: "info",
+                    text: "Producto agregado", className: "info",
                     style: {
                         background: "linear-gradient(to right, #22D619, #52D84B)",
                     },
@@ -76,7 +76,7 @@ const botonAgregar = (e) => {
 
             } else if (result.isDenied) {
                 Toastify({
-                    text: "no se ha agregado el producto",
+                    text: "No se ha agregado el producto",
                     className: "info",
                     style: {
                         background: "linear-gradient(to right, #EA1818, #C83939)",
@@ -93,8 +93,10 @@ const botonAgregar = (e) => {
 const carritoContainer = document.querySelector("#carrito")
 
 const renderizadoCarrito = () => {
+
     carritoContainer.innerHTML = `<h4 class= "m-0-auto">Total: $${totalCarrito()}</h4>
-    <button class=" btnn btn-success">finalizar compra</button>`
+    <button 
+     class=" btnFinish btn-success m-0-auto" id='botonDeFinalizar'>finalizar compra</button>`
 
     carrito.forEach(producto => {
         const cardC = document.createElement("div")
@@ -117,7 +119,25 @@ const renderizadoCarrito = () => {
         producto.addEventListener("click", delProducto)
 
     })
+    const fin = document.querySelector('#botonDeFinalizar')
+    fin.addEventListener("click", finalizarCompra)
+
 }
+
+const finalizarCompra = (e) => {
+    const botonFinalizar = e.target
+    Swal.fire(
+        `Tu compra ha finalizado! su total es: $${totalCarrito()}`,
+        'gracias por preferirnos',
+        'success'
+    )
+    botonFinalizar
+    carrito.pop()
+    renderizadoCarrito()
+
+}
+
+
 
 renderizadoCarrito()
 
@@ -128,17 +148,7 @@ const delProducto = (e) => {
     renderizadoCarrito()
 }
 
-const finalizarCompra = (e) => {
 
-    Swal.fire(
-        'Tu compra ha finalizado!',
-        'gracias por preferirnos',
-        'success'
-
-    )
-    carrito.pop()
-
-}
 
 
 const listenerbotones = () => {
@@ -149,13 +159,6 @@ const listenerbotones = () => {
     })
 
 
-}
-
-const busqueda = document.querySelector("#inputSearch")
-
-const search = (productos) => {
-
-    productos.find(productos ? console.log(productoElegido) : productos.nombre)
 }
 
 fetch('../productos.json')
