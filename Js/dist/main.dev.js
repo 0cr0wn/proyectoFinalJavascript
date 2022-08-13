@@ -118,7 +118,7 @@ var listenerbotones = function listenerbotones() {
   });
 };
 
-fetch('../productos.json').then(function (res) {
+fetch('./productos.json').then(function (res) {
   return res.json();
 }).then(function (data) {
   productos = data;
