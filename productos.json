@@ -25,6 +25,6 @@
     "nombre": "hamburguesa mixta",
     "descripcion": "pan, carne, pollo y/o chuleta, tomate, lechuga, salsas",
     "precio": 10990,
-    "img": "../media/burguer.jpg"
+    "img": "./media/burguer.jpg"
   }
 ]
