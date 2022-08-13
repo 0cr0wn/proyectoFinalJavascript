@@ -161,7 +161,7 @@ const listenerbotones = () => {
 
 }
 
-fetch('./productos.json')
+fetch('productos.json')
     .then((res) => res.json())
     .then((data) => {
         productos = data
