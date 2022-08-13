@@ -4,27 +4,27 @@
     "nombre": "hamburguesa de carne",
     "descripcion": "pan, carne, tomate, lechuga, salsas",
     "precio": 7990,
-    "img": "../media/burguer.jpg"
+    "img": "/media/burguer.jpg"
   },
   {
     "id": 102,
     "nombre": "hamburguesa de pollo",
     "descripcion": "pan, pollo, tomate, lechuga, salsas",
     "precio": 6990,
-    "img": "../media/burguer.jpg"
+    "img": "/media/burguer.jpg"
   },
   {
     "id": 103,
     "nombre": "hamburguesa de chuleta",
     "descripcion": "pan, chuleta, tomate, lechuga, salsas",
     "precio": 8990,
-    "img": "../media/burguer.jpg"
+    "img": "/media/burguer.jpg"
   },
   {
     "id": 104,
     "nombre": "hamburguesa mixta",
     "descripcion": "pan, carne, pollo y/o chuleta, tomate, lechuga, salsas",
     "precio": 10990,
-    "img": "./media/burguer.jpg"
+    "img": "/media/burguer.jpg"
   }
 ]
